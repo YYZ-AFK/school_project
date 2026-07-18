@@ -1,0 +1,33 @@
+# Build outputs
+target/
+*.class
+*.jar
+*.war
+
+# IDE and editor files
+.idea/
+*.iml
+.vscode/
+
+# Runtime logs and temporary files
+*.log
+*.tmp
+temp/
+temp_extract/
+logs/
+
+# Local runtime data
+medical-backend/uploads/
+medical-backend/backend*.log
+medical-frontend/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local tunnel/debug tools
+tools/
+
+# Dependency folders if generated later
+node_modules/
+dist/

@@ -1,0 +1,19 @@
+公网演示使用步骤
+
+1. 先确认本机能打开：
+   http://127.0.0.1:5173
+
+2. 如果开着 Clash Verge / Mihomo，请关闭虚拟网卡或 TUN 模式。
+   否则 cloudflared 可能会解析到 198.18.x.x，导致公网地址打不开。
+
+3. 双击：
+   start-public-url.bat
+
+4. 等窗口出现：
+   PUBLIC_URL=https://xxxxx.trycloudflare.com
+
+5. 把这个 https://xxxxx.trycloudflare.com 发给别人。
+
+6. 演示期间不要关闭 start-public-url.bat、start-all.bat、后端或前端窗口。
+
+7. 别人通过公网地址修改的数据，会写入你这台电脑上的 MySQL。你刷新页面后能看到。

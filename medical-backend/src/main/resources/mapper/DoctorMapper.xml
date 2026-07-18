@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.medical.mapper.DoctorMapper">
+    <resultMap id="DoctorModelMap" type="com.qst.medical.model.DoctorModel">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <result column="level_id" property="levelId"/>
+        <result column="phone" property="phone"/>
+        <result column="type_id" property="typeId"/>
+        <result column="hospital" property="hospital"/>
+        <result column="updatetime" property="updatetime"/>
+        <result column="createtime" property="createtime"/>
+        <result column="account_id" property="accountId"/>
+        <association property="doctorLevel" javaType="com.qst.medical.domain.DoctorLevel">
+            <id column="dl_id" property="id"/>
+            <result column="dl_name" property="name"/>
+        </association>
+        <association property="treatType" javaType="com.qst.medical.domain.TreatType">
+            <id column="tt_id" property="id"/>
+            <result column="tt_name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllDoctor" resultMap="DoctorModelMap">
+        select d.id, d.name, d.age, d.sex, d.level_id, d.phone, d.type_id,
+               d.hospital, d.updatetime, d.createtime, d.account_id,
+               dl.id as dl_id, dl.name as dl_name,
+               tt.id as tt_id, tt.name as tt_name
+        from doctor d
+        left join doctor_level dl on d.level_id = dl.id
+        left join treat_type tt on d.type_id = tt.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                    d.name like concat('%', #{keyword}, '%')
+                    or d.phone like concat('%', #{keyword}, '%')
+                    or dl.name like concat('%', #{keyword}, '%')
+                    or tt.name like concat('%', #{keyword}, '%')
+                )
+            </if>
+        </where>
+        order by d.id asc
+    </select>
+
+    <select id="getById" resultMap="DoctorModelMap">
+        select d.id, d.name, d.age, d.sex, d.level_id, d.phone, d.type_id,
+               d.hospital, d.updatetime, d.createtime, d.account_id,
+               dl.id as dl_id, dl.name as dl_name,
+               tt.id as tt_id, tt.name as tt_name
+        from doctor d
+        left join doctor_level dl on d.level_id = dl.id
+        left join treat_type tt on d.type_id = tt.id
+        where d.id = #{id}
+    </select>
+
+    <select id="getAllLevel" resultType="com.qst.medical.domain.DoctorLevel">
+        select id, name from doctor_level order by id asc
+    </select>
+
+    <select id="getAllTreatType" resultType="com.qst.medical.domain.TreatType">
+        select id, name from treat_type order by id asc
+    </select>
+
+    <insert id="save" parameterType="com.qst.medical.param.DoctorParam"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into doctor(name, age, sex, level_id, phone, type_id, hospital, account_id, createtime, updatetime)
+        values(#{name}, #{age}, #{sex}, #{levelId}, #{phone}, #{typeId}, #{hospital}, #{accountId}, now(6), now(6))
+    </insert>
+
+    <update id="update" parameterType="com.qst.medical.param.DoctorParam">
+        update doctor
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="levelId != null">level_id = #{levelId},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="hospital != null">hospital = #{hospital},</if>
+            updatetime = now(6)
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from doctor where id = #{id}
+    </delete>
+</mapper>

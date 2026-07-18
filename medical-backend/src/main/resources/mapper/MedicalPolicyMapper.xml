@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.medical.mapper.MedicalPolicyMapper">
+
+    <resultMap id="getAllPolicyMap" type="com.qst.medical.model.MedicalPolicyModel">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="message" column="message"/>
+        <result property="cityId" column="city_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="cityModel" javaType="com.qst.medical.model.CityModel">
+            <id property="cityId" column="city_id"/>
+            <result property="city" column="name"/>
+        </association>
+    </resultMap>
+
+    <!-- 条件查询医保政策 -->
+    <select id="getAllPolicy" resultMap="getAllPolicyMap">
+        SELECT mp.id, mp.title, mp.message,
+               mp.create_time, mp.update_time, mp.city_id, s.name
+        FROM medical_policy mp
+        LEFT JOIN city c ON mp.city_id = c.city_id
+        LEFT JOIN sysregion s ON s.id = c.city_number
+        <where>
+            <trim prefixOverrides="and|OR">
+                <if test="keyword != null and keyword != ''">
+                    <bind name="key" value="'%' + keyword + '%'"/>
+                    OR mp.title LIKE #{key}
+                    OR mp.message LIKE #{key}
+                    OR mp.id LIKE #{key}
+                    OR mp.city_id LIKE #{key}
+                    OR mp.update_time LIKE BINARY #{key}
+                    OR s.name LIKE #{key}
+                </if>
+                <if test="id != null">
+                    and mp.id = #{id}
+                </if>
+                <if test="title != null and title != ''">
+                    <bind name="ptitle" value="'%' + title + '%'"/>
+                    and mp.title LIKE #{ptitle}
+                </if>
+                <if test="updateTime != null and updateTime != ''">
+                    <bind name="pdate" value="'%' + updateTime + '%'"/>
+                    and mp.update_time LIKE #{pdate}
+                </if>
+                <if test="cityId != null">
+                    and mp.city_id = #{cityId}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <!-- 添加医保政策 -->
+    <insert id="saveMedicalPolicy" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO medical_policy(title, city_id, create_time, update_time, message)
+        VALUES(#{title}, #{cityId}, #{createTime}, #{updateTime}, #{message})
+    </insert>
+
+    <!-- 更新医保政策 -->
+    <update id="updateMedicalPolicy">
+        UPDATE medical_policy
+        SET title = #{title}, city_id = #{cityId},
+            message = #{message}, update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除医保政策 -->
+    <delete id="deleteMedicalPolicy">
+        DELETE FROM medical_policy WHERE id = #{id}
+    </delete>
+
+    <!-- 根据城市id删除医保政策 -->
+    <delete id="deleteByCity">
+        DELETE FROM medical_policy WHERE city_id = #{city}
+    </delete>
+
+</mapper>

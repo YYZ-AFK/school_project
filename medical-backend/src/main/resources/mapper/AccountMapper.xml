@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.medical.mapper.AccountMapper">
+    <resultMap id="AccountModelMap" type="com.qst.medical.model.AccountModel">
+        <id column="id" property="id"/>
+        <result column="realname" property="realname"/>
+        <result column="uname" property="uname"/>
+        <result column="pwd" property="pwd"/>
+        <result column="phonenumber" property="phonenumber"/>
+        <result column="utype" property="utype"/>
+        <result column="updatetime" property="updatetime"/>
+        <result column="createtime" property="createtime"/>
+    </resultMap>
+
+    <select id="securityLogin" resultMap="AccountModelMap">
+        select id, realname, uname, pwd, phonenumber, utype, updatetime, createtime
+        from account
+        where uname = #{uname}
+    </select>
+
+    <select id="countPhone" resultType="int">
+        select count(1)
+        from account
+        where phonenumber = #{phoneNumber}
+        <if test="accountId != null">
+            and id != #{accountId}
+        </if>
+    </select>
+
+    <select id="countUname" resultType="int">
+        select count(1)
+        from account
+        where uname = #{uname}
+    </select>
+
+    <insert id="save" parameterType="com.qst.medical.domain.Account"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into account(realname, uname, pwd, phonenumber, utype, createtime, updatetime)
+        values(#{realname}, #{uname}, #{pwd}, #{phonenumber}, #{utype}, now(6), now(6))
+    </insert>
+
+    <update id="updateBase" parameterType="com.qst.medical.domain.Account">
+        update account
+        <set>
+            <if test="realname != null">realname = #{realname},</if>
+            <if test="phonenumber != null">phonenumber = #{phonenumber},</if>
+            updatetime = now(6)
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updatePassword">
+        update account
+        set pwd = #{pwd}, updatetime = now(6)
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from account where id = #{id}
+    </delete>
+</mapper>
