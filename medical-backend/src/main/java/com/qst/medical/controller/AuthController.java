@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@Api(tags = "\u767b\u5f55\u8ba4\u8bc1\u63a5\u53e3")
+@Api(tags = "登录认证接口")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AccountService accountService;
@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @ApiOperation("\u7ba1\u7406\u5458\u767b\u5f55")
+    @ApiOperation("管理员登录")
     public Msg login(@RequestBody LoginParam param) {
         try {
             authenticationManager.authenticate(
