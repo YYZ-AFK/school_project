@@ -27,19 +27,19 @@
 
     <select id="getAllDoctor" resultMap="DoctorModelMap">
         select d.id, d.name, d.age, d.sex, d.level_id, d.phone, d.type_id,
-               d.hospital, d.updatetime, d.createtime, d.account_id,
-               dl.id as dl_id, dl.name as dl_name,
-               tt.id as tt_id, tt.name as tt_name
+        d.hospital, d.updatetime, d.createtime, d.account_id,
+        dl.id as dl_id, dl.name as dl_name,
+        tt.id as tt_id, tt.name as tt_name
         from doctor d
         left join doctor_level dl on d.level_id = dl.id
         left join treat_type tt on d.type_id = tt.id
         <where>
             <if test="keyword != null and keyword != ''">
                 and (
-                    d.name like concat('%', #{keyword}, '%')
-                    or d.phone like concat('%', #{keyword}, '%')
-                    or dl.name like concat('%', #{keyword}, '%')
-                    or tt.name like concat('%', #{keyword}, '%')
+                d.name like concat('%', #{keyword}, '%')
+                or d.phone like concat('%', #{keyword}, '%')
+                or dl.name like concat('%', #{keyword}, '%')
+                or tt.name like concat('%', #{keyword}, '%')
                 )
             </if>
         </where>
@@ -47,28 +47,43 @@
     </select>
 
     <select id="getById" resultMap="DoctorModelMap">
-        select d.id, d.name, d.age, d.sex, d.level_id, d.phone, d.type_id,
-               d.hospital, d.updatetime, d.createtime, d.account_id,
-               dl.id as dl_id, dl.name as dl_name,
-               tt.id as tt_id, tt.name as tt_name
+        select d.id,
+               d.name,
+               d.age,
+               d.sex,
+               d.level_id,
+               d.phone,
+               d.type_id,
+               d.hospital,
+               d.updatetime,
+               d.createtime,
+               d.account_id,
+               dl.id   as dl_id,
+               dl.name as dl_name,
+               tt.id   as tt_id,
+               tt.name as tt_name
         from doctor d
-        left join doctor_level dl on d.level_id = dl.id
-        left join treat_type tt on d.type_id = tt.id
+                 left join doctor_level dl on d.level_id = dl.id
+                 left join treat_type tt on d.type_id = tt.id
         where d.id = #{id}
     </select>
 
     <select id="getAllLevel" resultType="com.qst.medical.domain.DoctorLevel">
-        select id, name from doctor_level order by id asc
+        select id, name
+        from doctor_level
+        order by id asc
     </select>
 
     <select id="getAllTreatType" resultType="com.qst.medical.domain.TreatType">
-        select id, name from treat_type order by id asc
+        select id, name
+        from treat_type
+        order by id asc
     </select>
 
     <insert id="save" parameterType="com.qst.medical.param.DoctorParam"
             useGeneratedKeys="true" keyProperty="id">
         insert into doctor(name, age, sex, level_id, phone, type_id, hospital, account_id, createtime, updatetime)
-        values(#{name}, #{age}, #{sex}, #{levelId}, #{phone}, #{typeId}, #{hospital}, #{accountId}, now(6), now(6))
+        values (#{name}, #{age}, #{sex}, #{levelId}, #{phone}, #{typeId}, #{hospital}, #{accountId}, now(6), now(6))
     </insert>
 
     <update id="update" parameterType="com.qst.medical.param.DoctorParam">
@@ -87,6 +102,8 @@
     </update>
 
     <delete id="delete">
-        delete from doctor where id = #{id}
+        delete
+        from doctor
+        where id = #{id}
     </delete>
 </mapper>

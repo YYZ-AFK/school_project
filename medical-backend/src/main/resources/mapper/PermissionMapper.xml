@@ -16,7 +16,7 @@
     <select id="listByRole" resultMap="PermissionModelMap">
         select p.id, p.pid, p.name, p.path, p.component, p.level, p.title
         from permission p
-        inner join role_permission rp on p.id = rp.per_id
+                 inner join role_permission rp on p.id = rp.per_id
         where rp.roleName = #{roleName}
         order by p.level asc, p.id asc
     </select>

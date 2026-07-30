@@ -4,19 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.qst.medical.common.Msg;
 import com.qst.medical.model.CityModel;
 import com.qst.medical.service.CityService;
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 
-@Api(tags = "城市信息控制器")
+@Tag(name = "城市信息控制器")
 @RestController
 @RequestMapping("/api/citys")
 @CrossOrigin
@@ -40,6 +33,7 @@ public class CityController {
 
     /**
      * 根据id查询一个城市信息
+     *
      * @param id
      * @return
      */
@@ -51,6 +45,7 @@ public class CityController {
 
     /**
      * 新增一个城市信息
+     *
      * @param cityNumber
      * @return
      */
@@ -65,6 +60,7 @@ public class CityController {
 
     /**
      * 根据id删除城市
+     *
      * @param id
      * @return
      */

@@ -27,6 +27,7 @@ public class CityService {
 
     /**
      * 获取所有城市信息并分页，name不为空则模糊查询,当pn和size为null,则整页查询
+     *
      * @param pn
      * @param size
      * @param name
@@ -50,6 +51,7 @@ public class CityService {
 
     /**
      * 根据id查找一个城市
+     *
      * @param id
      * @return
      */
@@ -64,6 +66,7 @@ public class CityService {
 
     /**
      * 添加一个城市
+     *
      * @param cityNumber
      * @return
      */
@@ -100,6 +103,7 @@ public class CityService {
 
     /**
      * 检查城市名是否存在
+     *
      * @param number
      * @return
      */

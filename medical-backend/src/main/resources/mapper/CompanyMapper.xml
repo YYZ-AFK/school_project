@@ -16,7 +16,10 @@
 
     <!--根据id查找一个医药公司信息-->
     <select id="getCompanyById" resultType="com.qst.medical.domain.DrugCompany">
-        select * from drugcompany where company_id=#{id} limit 1
+        select *
+        from drugcompany
+        where company_id = #{id}
+        limit 1
     </select>
 
     <!--添加一个医药公司信息-->
@@ -30,13 +33,18 @@
 
     <!--根据id删除医药公司信息-->
     <delete id="deleteCompanyById">
-        delete from drugcompany where company_id=#{id}
+        delete
+        from drugcompany
+        where company_id = #{id}
     </delete>
 
     <!--根据id更新医药公司信息-->
     <update id="updateCompanyById">
-        update drugcompany set company_name=#{companyName},company_phone=#{companyPhone},updatetime=#{updatetime}
-        where company_id=#{companyId}
+        update drugcompany
+        set company_name=#{companyName},
+            company_phone=#{companyPhone},
+            updatetime=#{updatetime}
+        where company_id = #{companyId}
     </update>
 
 </mapper>

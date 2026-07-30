@@ -15,7 +15,14 @@
     </resultMap>
 
     <select id="securityLogin" resultMap="AccountModelMap">
-        select id, realname, uname, pwd, phonenumber, utype, updatetime, createtime
+        select id,
+               realname,
+               uname,
+               pwd,
+               phonenumber,
+               utype,
+               updatetime,
+               createtime
         from account
         where uname = #{uname}
     </select>
@@ -38,7 +45,7 @@
     <insert id="save" parameterType="com.qst.medical.domain.Account"
             useGeneratedKeys="true" keyProperty="id">
         insert into account(realname, uname, pwd, phonenumber, utype, createtime, updatetime)
-        values(#{realname}, #{uname}, #{pwd}, #{phonenumber}, #{utype}, now(6), now(6))
+        values (#{realname}, #{uname}, #{pwd}, #{phonenumber}, #{utype}, now(6), now(6))
     </insert>
 
     <update id="updateBase" parameterType="com.qst.medical.domain.Account">
@@ -53,11 +60,14 @@
 
     <update id="updatePassword">
         update account
-        set pwd = #{pwd}, updatetime = now(6)
+        set pwd        = #{pwd},
+            updatetime = now(6)
         where id = #{id}
     </update>
 
     <delete id="delete">
-        delete from account where id = #{id}
+        delete
+        from account
+        where id = #{id}
     </delete>
 </mapper>

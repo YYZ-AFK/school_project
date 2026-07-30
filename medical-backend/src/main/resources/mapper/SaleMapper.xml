@@ -17,7 +17,10 @@
 
     <!--根据id查找一个药店信息-->
     <select id="getSaleById" resultType="com.qst.medical.domain.Sale">
-        select * from sale where sale_id=#{id} limit 1
+        select *
+        from sale
+        where sale_id = #{id}
+        limit 1
     </select>
 
     <!--添加一个药店信息-->
@@ -31,14 +34,21 @@
 
     <!--根据id删除药店信息-->
     <delete id="deleteSaleById">
-        delete from sale where sale_id=#{id}
+        delete
+        from sale
+        where sale_id = #{id}
     </delete>
 
     <!--根据id更新药店信息-->
     <update id="updateSaleById">
-        update sale set sale_name=#{saleName},sale_phone=#{salePhone},
-        address=#{address},lng=#{lng},lat=#{lat},updatetime=#{updatetime}
-        where sale_id=#{saleId}
+        update sale
+        set sale_name=#{saleName},
+            sale_phone=#{salePhone},
+            address=#{address},
+            lng=#{lng},
+            lat=#{lat},
+            updatetime=#{updatetime}
+        where sale_id = #{saleId}
     </update>
 
 </mapper>

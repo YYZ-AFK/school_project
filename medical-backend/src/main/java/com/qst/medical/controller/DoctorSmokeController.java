@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/smoke")
-@ApiIgnore
+@Hidden
 public class DoctorSmokeController {
     private final JdbcTemplate jdbcTemplate;
 

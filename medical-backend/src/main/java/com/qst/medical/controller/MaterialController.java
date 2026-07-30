@@ -3,22 +3,14 @@ package com.qst.medical.controller;
 import com.qst.medical.common.Msg;
 import com.qst.medical.param.MaterialParam;
 import com.qst.medical.service.MaterialService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 
-@Api(tags = "必备材料控制器")
+@Tag(name = "必备材料控制器")
 @RestController
 @RequestMapping("/api/material")
 @CrossOrigin
@@ -33,7 +25,7 @@ public class MaterialController {
      * 分页、关键字查询必备材料信息
      */
     @GetMapping
-    @ApiOperation("分页条件查询必备材料")
+    @Operation(summary = "分页条件查询必备材料")
     public Msg getPolicyWithPage(MaterialParam param) {
         return materialService.getAllMaterialWithPage(param);
     }
@@ -43,7 +35,7 @@ public class MaterialController {
      */
     @RolesAllowed({"ROLE_1"})
     @PostMapping
-    @ApiOperation("新增必备材料")
+    @Operation(summary = "新增必备材料")
     public Msg saveMaterial(@RequestBody MaterialParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
             return Msg.fail().mess("标题不能为空");
@@ -59,7 +51,7 @@ public class MaterialController {
      */
     @RolesAllowed({"ROLE_1"})
     @PutMapping("/{id}")
-    @ApiOperation("修改必备材料")
+    @Operation(summary = "修改必备材料")
     public Msg updateMaterial(@PathVariable("id") Long id, @RequestBody MaterialParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
             return Msg.fail().mess("标题不能为空");
@@ -75,7 +67,7 @@ public class MaterialController {
      */
     @RolesAllowed({"ROLE_1"})
     @DeleteMapping("/{id}")
-    @ApiOperation("删除必备材料")
+    @Operation(summary = "删除必备材料")
     public Msg deleteMaterial(@PathVariable("id") Long id) {
         return materialService.deleteMaterial(id);
     }

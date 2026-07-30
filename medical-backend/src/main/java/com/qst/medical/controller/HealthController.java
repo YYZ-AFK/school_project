@@ -1,7 +1,7 @@
 package com.qst.medical.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/health")
-@Api(tags = "\u7cfb\u7edf\u72b6\u6001\u63a5\u53e3")
+@Tag(name = "系统状态接口")
 public class HealthController {
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,7 +21,7 @@ public class HealthController {
     }
 
     @GetMapping
-    @ApiOperation("\u68c0\u67e5\u540e\u7aef\u548c\u6570\u636e\u5e93\u8fde\u63a5\u72b6\u6001")
+    @Operation(summary = "检查后端和数据库连接状态")
     public Map<String, Object> health() {
         Integer tableCount = jdbcTemplate.queryForObject(
                 "select count(*) from information_schema.tables where table_schema = 'bin_text'",

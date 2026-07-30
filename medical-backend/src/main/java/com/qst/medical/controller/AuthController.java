@@ -5,8 +5,8 @@ import com.qst.medical.model.AccountModel;
 import com.qst.medical.param.LoginParam;
 import com.qst.medical.service.AccountService;
 import com.qst.medical.util.JwtUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@Api(tags = "登录认证接口")
+@Tag(name = "登录认证接口")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AccountService accountService;
@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @ApiOperation("管理员登录")
+    @Operation(summary = "管理员登录")
     public Msg login(@RequestBody LoginParam param) {
         try {
             authenticationManager.authenticate(

@@ -17,7 +17,7 @@
     <!--查询所有的城市信息,name不为空则模糊查询-->
     <select id="getAllCity" resultMap="AllCityMap">
         select c.city_id, c.city_number, c.createtime, c.updatetime,
-               s.`name` as cname, s2.`name` as pname
+        s.`name` as cname, s2.`name` as pname
         from city c
         left join sysregion s on c.city_number = s.id
         left join sysregion s2 on s.parent_id = s2.id
@@ -32,7 +32,10 @@
 
     <!--根据id查找一个城市信息-->
     <select id="getCityById" resultType="com.qst.medical.domain.City">
-        select * from city where city_id=#{id} limit 1
+        select *
+        from city
+        where city_id = #{id}
+        limit 1
     </select>
 
     <!--添加一个城市信息-->
@@ -46,12 +49,16 @@
 
     <!--根据id删除城市信息-->
     <delete id="deleteCityById">
-        delete from city where city_id=#{id}
+        delete
+        from city
+        where city_id = #{id}
     </delete>
 
     <!--通过城市编号查询城市是否存在-->
     <select id="checkCityByName" resultType="int">
-        select COUNT(*) from city where city_number=#{number}
+        select COUNT(*)
+        from city
+        where city_number = #{number}
     </select>
 
 </mapper>

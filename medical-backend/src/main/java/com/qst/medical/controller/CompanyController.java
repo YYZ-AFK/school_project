@@ -4,21 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.qst.medical.common.Msg;
 import com.qst.medical.domain.DrugCompany;
 import com.qst.medical.service.CompanyService;
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 
-@Api(tags = "医药公司信息控制器")
+@Tag(name = "医药公司信息控制器")
 @RestController
 @RequestMapping("/api/companys")
 @CrossOrigin
@@ -32,6 +23,7 @@ public class CompanyController {
 
     /**
      * 医药公司信息的分页查询,name不为空则模糊查询
+     *
      * @param pn
      * @param size
      * @param name
@@ -50,6 +42,7 @@ public class CompanyController {
 
     /**
      * 根据id查询一个医药公司信息
+     *
      * @param id
      * @return
      */
@@ -61,6 +54,7 @@ public class CompanyController {
 
     /**
      * 添加一个医药公司
+     *
      * @param company
      * @return
      */
@@ -78,6 +72,7 @@ public class CompanyController {
 
     /**
      * 根据id更新医药公司信息
+     *
      * @param company
      * @return
      */
@@ -98,6 +93,7 @@ public class CompanyController {
 
     /**
      * 根据id删除医药公司信息
+     *
      * @param id
      * @return
      */

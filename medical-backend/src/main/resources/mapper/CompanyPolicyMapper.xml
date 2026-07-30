@@ -39,25 +39,31 @@
     <!-- 添加医药公司政策 -->
     <insert id="savePolicy">
         INSERT INTO company_policy(title, message, company_id, create_time, update_time)
-        VALUES(#{title}, #{message}, #{companyId}, #{createTime}, #{updateTime})
+        VALUES (#{title}, #{message}, #{companyId}, #{createTime}, #{updateTime})
     </insert>
 
     <!-- 更新医药公司政策 -->
     <update id="updatePolicy">
         UPDATE company_policy
-        SET title = #{title}, message = #{message},
-            company_id = #{companyId}, update_time = #{updateTime}
+        SET title       = #{title},
+            message     = #{message},
+            company_id  = #{companyId},
+            update_time = #{updateTime}
         WHERE id = #{id}
     </update>
 
     <!-- 根据id删除医药公司政策 -->
     <delete id="deletePolicy">
-        DELETE FROM company_policy WHERE id = #{id}
+        DELETE
+        FROM company_policy
+        WHERE id = #{id}
     </delete>
 
     <!-- 根据公司id删除医药公司政策 -->
     <delete id="deletePolicyByCompany">
-        DELETE FROM company_policy WHERE company_id = #{id}
+        DELETE
+        FROM company_policy
+        WHERE company_id = #{id}
     </delete>
 
 </mapper>

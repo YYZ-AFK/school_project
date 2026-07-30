@@ -20,7 +20,7 @@
     <!-- 条件查询医保政策 -->
     <select id="getAllPolicy" resultMap="getAllPolicyMap">
         SELECT mp.id, mp.title, mp.message,
-               mp.create_time, mp.update_time, mp.city_id, s.name
+        mp.create_time, mp.update_time, mp.city_id, s.name
         FROM medical_policy mp
         LEFT JOIN city c ON mp.city_id = c.city_id
         LEFT JOIN sysregion s ON s.id = c.city_number
@@ -56,25 +56,31 @@
     <!-- 添加医保政策 -->
     <insert id="saveMedicalPolicy" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO medical_policy(title, city_id, create_time, update_time, message)
-        VALUES(#{title}, #{cityId}, #{createTime}, #{updateTime}, #{message})
+        VALUES (#{title}, #{cityId}, #{createTime}, #{updateTime}, #{message})
     </insert>
 
     <!-- 更新医保政策 -->
     <update id="updateMedicalPolicy">
         UPDATE medical_policy
-        SET title = #{title}, city_id = #{cityId},
-            message = #{message}, update_time = #{updateTime}
+        SET title       = #{title},
+            city_id     = #{cityId},
+            message     = #{message},
+            update_time = #{updateTime}
         WHERE id = #{id}
     </update>
 
     <!-- 根据id删除医保政策 -->
     <delete id="deleteMedicalPolicy">
-        DELETE FROM medical_policy WHERE id = #{id}
+        DELETE
+        FROM medical_policy
+        WHERE id = #{id}
     </delete>
 
     <!-- 根据城市id删除医保政策 -->
     <delete id="deleteByCity">
-        DELETE FROM medical_policy WHERE city_id = #{city}
+        DELETE
+        FROM medical_policy
+        WHERE city_id = #{city}
     </delete>
 
 </mapper>

@@ -22,17 +22,22 @@
     <!-- 添加必备材料 -->
     <insert id="saveMaterial">
         INSERT INTO material(title, message)
-        VALUES(#{title}, #{message})
+        VALUES (#{title}, #{message})
     </insert>
 
     <!-- 更新必备材料 -->
     <update id="updateMaterial">
-        UPDATE material SET title = #{title}, message = #{message} WHERE id = #{id}
+        UPDATE material
+        SET title   = #{title},
+            message = #{message}
+        WHERE id = #{id}
     </update>
 
     <!-- 根据id删除必备材料 -->
     <delete id="deleteMaterial">
-        DELETE FROM material WHERE id = #{id}
+        DELETE
+        FROM material
+        WHERE id = #{id}
     </delete>
 
 </mapper>

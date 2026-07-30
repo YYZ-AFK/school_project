@@ -20,21 +20,6 @@ public class MedicalApplication {
         }
     }
 
-    @Bean
-    public ApplicationRunner applicationRunner() {
-        return args -> {
-            String backendPort = firstNonBlank(System.getProperty("server.port"), System.getenv("SERVER_PORT"), "8080");
-            String frontendPort = firstNonBlank(System.getenv("PORT"), "5173");
-
-            System.out.println();
-            System.out.println("Medical backend started.");
-            System.out.println("Backend health: http://localhost:" + backendPort + "/api/health");
-            System.out.println("Swagger URL: http://localhost:" + backendPort + "/swagger-ui.html");
-            System.out.println("Frontend URL: http://localhost:" + frontendPort);
-            System.out.println();
-        };
-    }
-
     private static String firstNonBlank(String... values) {
         for (String value : values) {
             if (value != null && !value.trim().isEmpty()) {
@@ -70,5 +55,20 @@ public class MedicalApplication {
         System.out.println("Frontend URL: http://localhost:5173");
         System.out.println("If you need to restart, close the old backend window or stop the java process using this port.");
         System.out.println();
+    }
+
+    @Bean
+    public ApplicationRunner applicationRunner() {
+        return args -> {
+            String backendPort = firstNonBlank(System.getProperty("server.port"), System.getenv("SERVER_PORT"), "8080");
+            String frontendPort = firstNonBlank(System.getenv("PORT"), "5173");
+
+            System.out.println();
+            System.out.println("Medical backend started.");
+            System.out.println("Backend health: http://localhost:" + backendPort + "/api/health");
+            System.out.println("Swagger URL: http://localhost:" + backendPort + "/swagger-ui.html");
+            System.out.println("Frontend URL: http://localhost:" + frontendPort);
+            System.out.println();
+        };
     }
 }

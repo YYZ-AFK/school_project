@@ -27,6 +27,7 @@ public class CompanyService {
 
     /**
      * 获取所有医药公司信息并分页，name不为空则模糊查询
+     *
      * @param pn
      * @param size
      * @param name
@@ -53,6 +54,7 @@ public class CompanyService {
 
     /**
      * 根据id查找一个医药公司
+     *
      * @param id
      * @return
      */
@@ -67,6 +69,7 @@ public class CompanyService {
 
     /**
      * 添加一个医药公司
+     *
      * @param company
      * @return
      */
@@ -87,6 +90,7 @@ public class CompanyService {
 
     /**
      * 根据id更新医药公司信息
+     *
      * @param company
      * @return
      */

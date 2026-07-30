@@ -5,22 +5,13 @@ import com.qst.medical.common.Msg;
 import com.qst.medical.model.DrugModel;
 import com.qst.medical.param.DrugParam;
 import com.qst.medical.service.DrugService;
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.Date;
 
-@Api(tags = "药品控制器类")
+@Tag(name = "药品控制器类")
 @RestController
 @RequestMapping("/api/drugs")
 @CrossOrigin
@@ -33,6 +24,7 @@ public class DrugController {
 
     /**
      * 药品信息的分页查询,name不为空则模糊查询
+     *
      * @param pn
      * @param size
      * @param name
@@ -49,6 +41,7 @@ public class DrugController {
 
     /**
      * 新增药品信息
+     *
      * @param drugParam
      * @return
      */
@@ -63,6 +56,7 @@ public class DrugController {
 
     /**
      * 更新药品信息
+     *
      * @param drugParam
      * @return
      */
@@ -74,6 +68,7 @@ public class DrugController {
 
     /**
      * 根据id删除药品信息以及药品-药店关联表的信息
+     *
      * @param drugId
      * @return
      */
