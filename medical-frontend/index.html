@@ -1,43 +1,45 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>慧医数字医疗应用系统 - 登录</title>
-  <link rel="stylesheet" href="./styles.css">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>慧医数字医疗应用系统 - 登录</title>
+    <link href="./styles.css" rel="stylesheet">
 </head>
 <body class="login-page">
-  <main class="login-panel">
+<main class="login-panel">
     <div class="login-visual">
-      <img src="./assets/HomeLogo.png" alt="慧医系统" class="brand-logo">
-      <h1>慧医数字医疗应用系统</h1>
-      <p>医保服务与医药信息管理平台</p>
+        <img alt="慧医系统" class="brand-logo" src="./assets/HomeLogo.png">
+        <h1>慧医数字医疗应用系统</h1>
+        <p>医保服务与医药信息管理平台</p>
     </div>
     <form class="login-form" id="loginForm">
-      <div class="login-form-head">
-        <strong>账号登录</strong>
-        <span id="roleHint">管理员账号可进入系统管理功能</span>
-      </div>
+        <div class="login-form-head">
+            <strong>账号登录</strong>
+            <span id="roleHint">管理员账号可进入系统管理功能</span>
+        </div>
 
-      <div class="role-switch" role="tablist" aria-label="选择登录身份">
-        <button type="button" class="role-button active" data-role="admin" aria-selected="true">管理员登录</button>
-        <button type="button" class="role-button" data-role="doctor" aria-selected="false">医生登录</button>
-      </div>
+        <div aria-label="选择登录身份" class="role-switch" role="tablist">
+            <button aria-selected="true" class="role-button active" data-role="admin" type="button">管理员登录</button>
+            <button aria-selected="false" class="role-button" data-role="doctor" type="button">医生登录</button>
+        </div>
 
-      <label>
-        <span>账号</span>
-        <input id="username" class="login-input username-input" name="username" autocomplete="username" placeholder="请输入管理员账号" required>
-      </label>
-      <label>
-        <span>密码</span>
-        <input id="password" class="login-input password-input" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
-      </label>
+        <label>
+            <span>账号</span>
+            <input autocomplete="username" class="login-input username-input" id="username" name="username"
+                   placeholder="请输入管理员账号" required>
+        </label>
+        <label>
+            <span>密码</span>
+            <input autocomplete="current-password" class="login-input password-input" id="password" name="password"
+                   placeholder="请输入密码" required type="password">
+        </label>
 
-      <p class="login-tip" id="loginTip">请使用管理员分配的账号和密码登录。</p>
-      <button type="submit" id="loginButton">管理员登录</button>
-      <p class="form-message" id="loginMessage"></p>
+        <p class="login-tip" id="loginTip">请使用管理员分配的账号和密码登录。</p>
+        <button id="loginButton" type="submit">管理员登录</button>
+        <p class="form-message" id="loginMessage"></p>
     </form>
-  </main>
-  <script src="./login.js"></script>
+</main>
+<script src="./login.js"></script>
 </body>
 </html>
