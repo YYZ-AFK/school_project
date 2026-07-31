@@ -6,6 +6,7 @@ import com.qst.medical.service.MedicalPolicyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -36,7 +37,7 @@ public class MedicalPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PostMapping
     @Operation(summary = "新增医保政策")
-    public Msg saveMedicalPolicy(@RequestBody MedicalPolicyParam param) {
+    public Msg saveMedicalPolicy(@Validated @RequestBody MedicalPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
             return Msg.fail().mess("标题不能为空");
         }
@@ -55,7 +56,7 @@ public class MedicalPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PutMapping("/{id}")
     @Operation(summary = "修改医保政策")
-    public Msg updateMedicalPolicy(@PathVariable("id") Long id, @RequestBody MedicalPolicyParam param) {
+    public Msg updateMedicalPolicy(@PathVariable("id") Long id,@Validated @RequestBody MedicalPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
             return Msg.fail().mess("标题不能为空");
         }

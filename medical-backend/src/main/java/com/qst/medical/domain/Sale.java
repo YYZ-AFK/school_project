@@ -2,11 +2,13 @@ package com.qst.medical.domain;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
 public class Sale extends SuperDomain {
     private Long saleId;//药店id
+    @NotBlank(message="药店名不能为空")
     private String saleName;//药店名
     private String salePhone;//药店电话
     private String address;//地址

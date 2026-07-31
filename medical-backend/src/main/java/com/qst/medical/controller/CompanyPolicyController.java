@@ -6,6 +6,7 @@ import com.qst.medical.service.CompanyPolicyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -36,7 +37,7 @@ public class CompanyPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PostMapping
     @Operation(summary = "新增医药公司政策")
-    public Msg savePolicy(@RequestBody CompanyPolicyParam param) {
+    public Msg savePolicy(@Validated @RequestBody CompanyPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
             return Msg.fail().mess("标题不能为空");
         }

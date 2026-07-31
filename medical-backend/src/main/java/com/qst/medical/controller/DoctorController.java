@@ -5,6 +5,7 @@ import com.qst.medical.param.DoctorParam;
 import com.qst.medical.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,7 +40,7 @@ public class DoctorController {
 
     @PostMapping
     @Operation(summary = "新增医生并创建账号")
-    public Msg save(@RequestBody DoctorParam param) {
+    public Msg save(@Validated @RequestBody DoctorParam param) {
         try {
             return Msg.success().data("doctor", doctorService.save(param));
         } catch (Exception ex) {

@@ -5,6 +5,7 @@ import com.qst.medical.common.Msg;
 import com.qst.medical.domain.DrugCompany;
 import com.qst.medical.service.CompanyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -60,7 +61,7 @@ public class CompanyController {
      */
     @RolesAllowed({"ROLE_1"})
     @PostMapping(value = "")
-    public Msg saveCompany(@RequestBody DrugCompany company) {
+    public Msg saveCompany(@Validated @RequestBody DrugCompany company) {
         String name = company.getCompanyName();
         String phone = company.getCompanyPhone();
 

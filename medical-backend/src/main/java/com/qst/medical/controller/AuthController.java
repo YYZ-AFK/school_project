@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "管理员登录")
-    public Msg login(@RequestBody LoginParam param) {
+    public Msg login(@Validated @RequestBody LoginParam param) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(param.getUsername(), param.getPassword())

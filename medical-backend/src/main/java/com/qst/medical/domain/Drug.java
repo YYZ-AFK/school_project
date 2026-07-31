@@ -2,6 +2,7 @@ package com.qst.medical.domain;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Date;
 public class Drug extends SuperDomain {
     private Long drugId;//药品id
 
+    @NotBlank(message="药品名称不能为空")
     private String drugName;//药品名称
 
     private String drugInfo;//药品成分信息

@@ -6,6 +6,7 @@ import com.qst.medical.model.DrugModel;
 import com.qst.medical.param.DrugParam;
 import com.qst.medical.service.DrugService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -47,7 +48,7 @@ public class DrugController {
      */
     @RolesAllowed({"ROLE_1", "ROLE_2"})
     @PostMapping(value = "")
-    public Msg saveDrug(@RequestBody DrugParam drugParam) {
+    public Msg saveDrug(@Validated @RequestBody DrugParam drugParam) {
         drugParam.setCreatetime(new Date());
         drugParam.setUpdatetime(new Date());
         Msg msg = drugService.saveDrug(drugParam);

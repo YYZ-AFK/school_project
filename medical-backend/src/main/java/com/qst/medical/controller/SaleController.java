@@ -5,6 +5,7 @@ import com.qst.medical.common.Msg;
 import com.qst.medical.domain.Sale;
 import com.qst.medical.service.SaleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "药店信息控制器")
@@ -43,7 +44,7 @@ public class SaleController {
      * 添加一个药店
      */
     @PostMapping
-    public Msg saveSale(@RequestBody Sale sale) {
+    public Msg saveSale(@Validated @RequestBody Sale sale) {
         if (sale.getSaleName() == null || sale.getSaleName().trim().isEmpty()) {
             return Msg.fail().mess("药店名称不能为空");
         }
