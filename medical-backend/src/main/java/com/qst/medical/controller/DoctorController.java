@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.param.DoctorParam;
 import com.qst.medical.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,67 +20,67 @@ public class DoctorController {
 
     @GetMapping
     @Operation(summary = "分页查询医生信息")
-    public Msg list(DoctorParam param) {
-        return Msg.success().data("pageInfo", doctorService.list(param));
+    public Result list(DoctorParam param) {
+        return Result.success().data("pageInfo", doctorService.list(param));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "根据ID查询医生详情")
-    public Msg get(@PathVariable Long id) {
-        return Msg.success().data("doctor", doctorService.getById(id));
+    public Result get(@PathVariable Long id) {
+        return Result.success().data("doctor", doctorService.getById(id));
     }
 
     @GetMapping("/info")
     @Operation(summary = "查询医生级别和诊疗类型字典")
-    public Msg info() {
-        return Msg.success()
+    public Result info() {
+        return Result.success()
                 .data("level", doctorService.levels())
                 .data("type", doctorService.treatTypes());
     }
 
     @PostMapping
     @Operation(summary = "新增医生并创建账号")
-    public Msg save(@Validated @RequestBody DoctorParam param) {
+    public Result save(@Validated @RequestBody DoctorParam param) {
         try {
-            return Msg.success().data("doctor", doctorService.save(param));
+            return Result.success().data("doctor", doctorService.save(param));
         } catch (Exception ex) {
-            return Msg.fail().mess(ex.getMessage());
+            return Result.fail().mess(ex.getMessage());
         }
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "修改医生信息")
-    public Msg update(@PathVariable Long id, @RequestBody DoctorParam param) {
+    public Result update(@PathVariable Long id, @RequestBody DoctorParam param) {
         try {
-            return Msg.success().data("doctor", doctorService.update(id, param));
+            return Result.success().data("doctor", doctorService.update(id, param));
         } catch (Exception ex) {
-            return Msg.fail().mess(ex.getMessage());
+            return Result.fail().mess(ex.getMessage());
         }
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除医生及其对应账号")
-    public Msg delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Long id) {
         doctorService.delete(id);
-        return Msg.success();
+        return Result.success();
     }
 
     @PutMapping("/{id}/password")
     @Operation(summary = "重置医生账号密码")
-    public Msg resetPassword(@PathVariable Long id,
-                             @RequestParam(required = false) String password) {
+    public Result resetPassword(@PathVariable Long id,
+                                @RequestParam(required = false) String password) {
         try {
             doctorService.resetPassword(id, password);
-            return Msg.success();
+            return Result.success();
         } catch (Exception ex) {
-            return Msg.fail().mess(ex.getMessage());
+            return Result.fail().mess(ex.getMessage());
         }
     }
 
     @PutMapping("/reset/{id}")
     @Operation(summary = "重置密码兼容接口（旧版）", deprecated = true)
-    public Msg resetPasswordAlias(@PathVariable Long id,
-                                  @RequestParam(required = false) String password) {
+    public Result resetPasswordAlias(@PathVariable Long id,
+                                     @RequestParam(required = false) String password) {
         return resetPassword(id, password);
     }
 }

@@ -2,7 +2,7 @@ package com.qst.medical.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.domain.DrugCompany;
 import com.qst.medical.entity.DrugCompanyEntity;
 import com.qst.medical.mapper.CompanyMapper;
@@ -58,13 +58,13 @@ public class CompanyService {
      * @param id
      * @return
      */
-    public Msg getCompanyById(Integer id) {
+    public Result getCompanyById(Integer id) {
         DrugCompany company = companyMapper.getCompanyById(id);
 
         if (company == null) {
-            return Msg.fail().mess("没有找到");
+            return Result.fail().mess("没有找到");
         }
-        return Msg.success().data("company", company);
+        return Result.success().data("company", company);
     }
 
     /**
@@ -73,7 +73,7 @@ public class CompanyService {
      * @param company
      * @return
      */
-    public Msg saveCompany(DrugCompany company) {
+    public Result saveCompany(DrugCompany company) {
         Date d = new Date();
         company.setCreatetime(d);
         company.setUpdatetime(d);
@@ -83,9 +83,9 @@ public class CompanyService {
         if (i > 0) {
             Long total = dce.getTotal() != null ? dce.getTotal() : (long) i;
             Long num = total % 5 == 0 ? (total / 5) : (total / 5) + 1;
-            return Msg.success().data("pages", num).mess("添加成功");
+            return Result.success().data("pages", num).mess("添加成功");
         }
-        return Msg.fail().mess("添加失败");
+        return Result.fail().mess("添加失败");
     }
 
     /**
@@ -94,27 +94,27 @@ public class CompanyService {
      * @param company
      * @return
      */
-    public Msg updateCompanyById(Long id, DrugCompany company) {
+    public Result updateCompanyById(Long id, DrugCompany company) {
         company.setUpdatetime(new Date());
         company.setCompanyId(id);
         int i = companyMapper.updateCompanyById(company);
         if (i > 0) {
-            return Msg.success().mess("修改成功");
+            return Result.success().mess("修改成功");
         }
-        return Msg.fail().mess("修改失败");
+        return Result.fail().mess("修改失败");
     }
 
     /**
      * 根据id删除医药公司信息，同时删除该公司关联的政策
      */
     @Transactional
-    public Msg deleteCompanyById(Integer id) {
+    public Result deleteCompanyById(Integer id) {
         companyPolicyMapper.deletePolicyByCompany(id);
         int i = companyMapper.deleteCompanyById(id);
         if (i > 0) {
-            return Msg.success().mess("删除成功");
+            return Result.success().mess("删除成功");
         } else {
-            return Msg.fail().mess("删除失败");
+            return Result.fail().mess("删除失败");
         }
     }
 

@@ -1,7 +1,7 @@
 package com.qst.medical.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.model.CityModel;
 import com.qst.medical.service.CityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,14 +21,14 @@ public class CityController {
     }
 
     @GetMapping(value = {"/{pn}/{size}", ""})
-    public Msg getCityWithPage(@PathVariable(value = "pn", required = false) Integer pn,
-                               @PathVariable(value = "size", required = false) Integer size,
-                               @RequestParam(required = false) String name) {
+    public Result getCityWithPage(@PathVariable(value = "pn", required = false) Integer pn,
+                                  @PathVariable(value = "size", required = false) Integer size,
+                                  @RequestParam(required = false) String name) {
         PageInfo<CityModel> info = cityService.getCityWithPage(pn, size, name);
         if (info != null) {
-            return Msg.success().data("cityPageInfo", info);
+            return Result.success().data("cityPageInfo", info);
         }
-        return Msg.fail();
+        return Result.fail();
     }
 
     /**
@@ -38,9 +38,9 @@ public class CityController {
      * @return
      */
     @GetMapping("{id}")
-    public Msg getCityById(@PathVariable("id") Integer id) {
-        Msg msg = cityService.getCityById(id);
-        return msg;
+    public Result getCityById(@PathVariable("id") Integer id) {
+        Result result = cityService.getCityById(id);
+        return result;
     }
 
     /**
@@ -51,9 +51,9 @@ public class CityController {
      */
     @RolesAllowed({"ROLE_1"})
     @PostMapping(value = "")
-    public Msg saveCity(Integer cityNumber) {
+    public Result saveCity(Integer cityNumber) {
         if (cityService.checkCityByName(cityNumber) > 0) {
-            return Msg.fail().mess("城市已经存在").code(10004);
+            return Result.fail().mess("城市已经存在").code(10004);
         }
         return cityService.saveCity(cityNumber);
     }
@@ -66,8 +66,8 @@ public class CityController {
      */
     @RolesAllowed({"ROLE_1"})
     @DeleteMapping("{id}")
-    public Msg deleteCityById(@PathVariable("id") Integer id) {
-        Msg msg = cityService.deleteCityById(id);
-        return msg;
+    public Result deleteCityById(@PathVariable("id") Integer id) {
+        Result result = cityService.deleteCityById(id);
+        return result;
     }
 }

@@ -2,7 +2,7 @@ package com.qst.medical.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.domain.Sale;
 import com.qst.medical.entity.SaleEntity;
 import com.qst.medical.mapper.SaleMapper;
@@ -39,18 +39,18 @@ public class SaleService {
     /**
      * 根据id查找一个药店
      */
-    public Msg getSaleById(Integer id) {
+    public Result getSaleById(Integer id) {
         Sale sale = saleMapper.getSaleById(id);
         if (sale == null) {
-            return Msg.fail().mess("没有找到");
+            return Result.fail().mess("没有找到");
         }
-        return Msg.success().data("sale", sale);
+        return Result.success().data("sale", sale);
     }
 
     /**
      * 添加一个药店
      */
-    public Msg saveSale(Sale sale) {
+    public Result saveSale(Sale sale) {
         Date d = new Date();
         sale.setCreatetime(d);
         sale.setUpdatetime(d);
@@ -58,32 +58,32 @@ public class SaleService {
         BeanUtils.copyProperties(sale, se);
         int i = saleMapper.saveSale(se);
         if (i > 0) {
-            return Msg.success().mess("添加成功");
+            return Result.success().mess("添加成功");
         }
-        return Msg.fail().mess("添加失败");
+        return Result.fail().mess("添加失败");
     }
 
     /**
      * 根据id更新药店信息
      */
-    public Msg updateSaleById(Long id, Sale sale) {
+    public Result updateSaleById(Long id, Sale sale) {
         sale.setUpdatetime(new Date());
         sale.setSaleId(id);
         int i = saleMapper.updateSaleById(sale);
         if (i > 0) {
-            return Msg.success().mess("修改成功");
+            return Result.success().mess("修改成功");
         }
-        return Msg.fail().mess("修改失败");
+        return Result.fail().mess("修改失败");
     }
 
     /**
      * 根据id删除药店信息
      */
-    public Msg deleteSaleById(Integer id) {
+    public Result deleteSaleById(Integer id) {
         int i = saleMapper.deleteSaleById(id);
         if (i > 0) {
-            return Msg.success().mess("删除成功");
+            return Result.success().mess("删除成功");
         }
-        return Msg.fail().mess("删除失败");
+        return Result.fail().mess("删除失败");
     }
 }

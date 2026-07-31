@@ -5,30 +5,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class Msg {
+public class Result {
     private Integer code;
     private String mess;
     private Map<String, Object> data = new HashMap<>();
 
-    public static Msg success() {
-        return new Msg().code(20000).mess("操作成功");
+    public static Result success() {
+        return new Result().code(20000).mess("操作成功");
     }
 
-    public static Msg fail() {
-        return new Msg().code(10001).mess("操作失败");
+    public static Result fail() {
+        return new Result().code(10001).mess("操作失败");
     }
 
-    public Msg code(Integer code) {
+    public Result code(Integer code) {
         this.code = code;
         return this;
     }
 
-    public Msg mess(String mess) {
+    public Result mess(String mess) {
         this.mess = mess;
         return this;
     }
 
-    public Msg data(String key, Object value) {
+    public Result data(String key, Object value) {
         this.data.put(key, value);
         return this;
     }

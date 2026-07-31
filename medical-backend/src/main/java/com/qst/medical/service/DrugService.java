@@ -2,7 +2,7 @@ package com.qst.medical.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.entity.DrugEntity;
 import com.qst.medical.mapper.DrugMapper;
 import com.qst.medical.model.DrugModel;
@@ -36,7 +36,7 @@ public class DrugService {
      * 添加药品信息
      */
     @Transactional
-    public Msg saveDrug(DrugParam drugParam) {
+    public Result saveDrug(DrugParam drugParam) {
         drugParam.setCreatetime(new Date());
         drugParam.setUpdatetime(new Date());
         int i = drugMapper.saveDrug(drugParam);
@@ -44,16 +44,16 @@ public class DrugService {
             drugMapper.insertSalePlace(drugParam.getDrugId(), drugParam.getSaleIds());
         }
         if (i > 0) {
-            return Msg.success().mess("添加成功");
+            return Result.success().mess("添加成功");
         }
-        return Msg.fail().mess("添加失败");
+        return Result.fail().mess("添加失败");
     }
 
     /**
      * 更新药品信息：先更新药品本身，再重建销售地点关联
      */
     @Transactional
-    public Msg updateDrug(Long id, DrugParam drugParam) {
+    public Result updateDrug(Long id, DrugParam drugParam) {
         drugParam.setUpdatetime(new Date());
         drugParam.setDrugId(id);
 
@@ -62,7 +62,7 @@ public class DrugService {
         BeanUtils.copyProperties(drugParam, drugEntity);
         int i = drugMapper.updateDrugById(drugEntity);
         if (i <= 0) {
-            return Msg.fail().mess("修改失败：药品不存在");
+            return Result.fail().mess("修改失败：药品不存在");
         }
 
         // 2. 再重建销售地点关联（先删后插）
@@ -71,21 +71,21 @@ public class DrugService {
             drugMapper.insertSalePlace(id, drugParam.getSaleIds());
         }
 
-        return Msg.success().mess("修改成功");
+        return Result.success().mess("修改成功");
     }
 
     /**
      * 根据id删除药品信息及关联的销售地点
      */
     @Transactional
-    public Msg deleteDrug(Long drugId) {
+    public Result deleteDrug(Long drugId) {
         // 先删关联，再删药品
         drugMapper.deleteSaleByDrugId(drugId);
         int i = drugMapper.deleteDrugById(drugId);
         if (i > 0) {
-            return Msg.success().mess("删除成功");
+            return Result.success().mess("删除成功");
         }
-        return Msg.fail().mess("删除失败：药品不存在");
+        return Result.fail().mess("删除失败：药品不存在");
     }
 
 }

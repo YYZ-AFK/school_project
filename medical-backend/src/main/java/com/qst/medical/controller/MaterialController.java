@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.param.MaterialParam;
 import com.qst.medical.service.MaterialService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class MaterialController {
      */
     @GetMapping
     @Operation(summary = "分页条件查询必备材料")
-    public Msg getPolicyWithPage(MaterialParam param) {
+    public Result getPolicyWithPage(MaterialParam param) {
         return materialService.getAllMaterialWithPage(param);
     }
 
@@ -37,12 +37,12 @@ public class MaterialController {
     @RolesAllowed({"ROLE_1"})
     @PostMapping
     @Operation(summary = "新增必备材料")
-    public Msg saveMaterial(@Validated @RequestBody MaterialParam param) {
+    public Result saveMaterial(@Validated @RequestBody MaterialParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
-            return Msg.fail().mess("标题不能为空");
+            return Result.fail().mess("标题不能为空");
         }
         if (!StringUtils.hasText(param.getMessage())) {
-            return Msg.fail().mess("内容不能为空");
+            return Result.fail().mess("内容不能为空");
         }
         return materialService.saveMaterial(param);
     }
@@ -53,12 +53,12 @@ public class MaterialController {
     @RolesAllowed({"ROLE_1"})
     @PutMapping("/{id}")
     @Operation(summary = "修改必备材料")
-    public Msg updateMaterial(@PathVariable("id") Long id, @RequestBody MaterialParam param) {
+    public Result updateMaterial(@PathVariable("id") Long id, @RequestBody MaterialParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
-            return Msg.fail().mess("标题不能为空");
+            return Result.fail().mess("标题不能为空");
         }
         if (!StringUtils.hasText(param.getMessage())) {
-            return Msg.fail().mess("内容不能为空");
+            return Result.fail().mess("内容不能为空");
         }
         return materialService.updateMaterial(id, param);
     }
@@ -69,7 +69,7 @@ public class MaterialController {
     @RolesAllowed({"ROLE_1"})
     @DeleteMapping("/{id}")
     @Operation(summary = "删除必备材料")
-    public Msg deleteMaterial(@PathVariable("id") Long id) {
+    public Result deleteMaterial(@PathVariable("id") Long id) {
         return materialService.deleteMaterial(id);
     }
 }

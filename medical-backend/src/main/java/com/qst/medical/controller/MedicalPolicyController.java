@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.param.MedicalPolicyParam;
 import com.qst.medical.service.MedicalPolicyService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class MedicalPolicyController {
      */
     @GetMapping
     @Operation(summary = "分页条件查询医保政策")
-    public Msg getMedicalPolicyWithPage(MedicalPolicyParam param) {
+    public Result getMedicalPolicyWithPage(MedicalPolicyParam param) {
         return medicalPolicyService.getMedicalPolicyWithPage(param);
     }
 
@@ -37,15 +37,15 @@ public class MedicalPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PostMapping
     @Operation(summary = "新增医保政策")
-    public Msg saveMedicalPolicy(@Validated @RequestBody MedicalPolicyParam param) {
+    public Result saveMedicalPolicy(@Validated @RequestBody MedicalPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
-            return Msg.fail().mess("标题不能为空");
+            return Result.fail().mess("标题不能为空");
         }
         if (!StringUtils.hasText(param.getMessage())) {
-            return Msg.fail().mess("内容不能为空");
+            return Result.fail().mess("内容不能为空");
         }
         if (param.getCityId() == null) {
-            return Msg.fail().mess("城市不能为空");
+            return Result.fail().mess("城市不能为空");
         }
         return medicalPolicyService.saveMedicalPolicy(param);
     }
@@ -56,15 +56,15 @@ public class MedicalPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PutMapping("/{id}")
     @Operation(summary = "修改医保政策")
-    public Msg updateMedicalPolicy(@PathVariable("id") Long id,@Validated @RequestBody MedicalPolicyParam param) {
+    public Result updateMedicalPolicy(@PathVariable("id") Long id, @Validated @RequestBody MedicalPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
-            return Msg.fail().mess("标题不能为空");
+            return Result.fail().mess("标题不能为空");
         }
         if (!StringUtils.hasText(param.getMessage())) {
-            return Msg.fail().mess("内容不能为空");
+            return Result.fail().mess("内容不能为空");
         }
         if (param.getCityId() == null) {
-            return Msg.fail().mess("城市不能为空");
+            return Result.fail().mess("城市不能为空");
         }
         return medicalPolicyService.updateMedicalPolicy(id, param);
     }
@@ -75,7 +75,7 @@ public class MedicalPolicyController {
     @RolesAllowed({"ROLE_1"})
     @DeleteMapping("/{id}")
     @Operation(summary = "删除医保政策")
-    public Msg deleteMedicalPolicy(@PathVariable("id") Long id) {
+    public Result deleteMedicalPolicy(@PathVariable("id") Long id) {
         return medicalPolicyService.deleteMedicalPolicy(id);
     }
 }

@@ -2,7 +2,7 @@ package com.qst.medical.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.domain.City;
 import com.qst.medical.entity.CityEntity;
 import com.qst.medical.mapper.CityMapper;
@@ -55,13 +55,13 @@ public class CityService {
      * @param id
      * @return
      */
-    public Msg getCityById(Integer id) {
+    public Result getCityById(Integer id) {
         City city = cityMapper.getCityById(id);
 
         if (city == null) {
-            return Msg.fail().mess("没有找到");
+            return Result.fail().mess("没有找到");
         }
-        return Msg.success().data("city", city);
+        return Result.success().data("city", city);
     }
 
     /**
@@ -70,7 +70,7 @@ public class CityService {
      * @param cityNumber
      * @return
      */
-    public Msg saveCity(Integer cityNumber) {
+    public Result saveCity(Integer cityNumber) {
         City city = new City();
         Date d = new Date();
         city.setCityNumber(cityNumber);
@@ -82,22 +82,22 @@ public class CityService {
         if (i > 0) {
             Long total = ce.getTotal() != null ? ce.getTotal() : (long) i;
             Long num = total % 5 == 0 ? (total / 5) : (total / 5) + 1;
-            return Msg.success().data("pages", num).mess("添加成功");
+            return Result.success().data("pages", num).mess("添加成功");
         }
-        return Msg.fail().mess("添加失败");
+        return Result.fail().mess("添加失败");
     }
 
     /**
      * 根据id删除城市，同时删除该城市的医保政策
      */
     @Transactional
-    public Msg deleteCityById(Integer id) {
+    public Result deleteCityById(Integer id) {
         medicalPolicyMapper.deleteByCity(id);
         int i = cityMapper.deleteCityById(id);
         if (i > 0) {
-            return Msg.success().mess("删除成功");
+            return Result.success().mess("删除成功");
         } else {
-            return Msg.fail().mess("删除失败");
+            return Result.fail().mess("删除失败");
         }
     }
 

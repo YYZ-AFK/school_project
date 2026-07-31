@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.model.AccountModel;
 import com.qst.medical.service.PermissionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,12 +23,12 @@ public class PermissionController {
 
     @GetMapping("/permissions")
     @Operation(summary = "查询当前角色的权限菜单树")
-    public Msg permissions(@RequestParam(required = false) String roleName, Authentication authentication) {
+    public Result permissions(@RequestParam(required = false) String roleName, Authentication authentication) {
         if ((roleName == null || roleName.trim().isEmpty())
                 && authentication != null
                 && authentication.getPrincipal() instanceof AccountModel) {
             roleName = ((AccountModel) authentication.getPrincipal()).getUtype();
         }
-        return Msg.success().data("permissions", permissionService.listTree(roleName));
+        return Result.success().data("permissions", permissionService.listTree(roleName));
     }
 }

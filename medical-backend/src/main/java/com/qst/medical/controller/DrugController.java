@@ -1,7 +1,7 @@
 package com.qst.medical.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.model.DrugModel;
 import com.qst.medical.param.DrugParam;
 import com.qst.medical.service.DrugService;
@@ -32,12 +32,12 @@ public class DrugController {
      * @return
      */
     @GetMapping("/{pn}/{size}")
-    public Msg getDrugWithPage(@PathVariable("pn") int pn, @PathVariable("size") int size, @RequestParam(required = false) String name) {
+    public Result getDrugWithPage(@PathVariable("pn") int pn, @PathVariable("size") int size, @RequestParam(required = false) String name) {
         PageInfo<DrugModel> info = drugService.getDrugWithPage(pn, size, name);
         if (info != null) {
-            return Msg.success().data("drugPageInfo", info);
+            return Result.success().data("drugPageInfo", info);
         }
-        return Msg.fail();
+        return Result.fail();
     }
 
     /**
@@ -48,11 +48,11 @@ public class DrugController {
      */
     @RolesAllowed({"ROLE_1", "ROLE_2"})
     @PostMapping(value = "")
-    public Msg saveDrug(@Validated @RequestBody DrugParam drugParam) {
+    public Result saveDrug(@Validated @RequestBody DrugParam drugParam) {
         drugParam.setCreatetime(new Date());
         drugParam.setUpdatetime(new Date());
-        Msg msg = drugService.saveDrug(drugParam);
-        return msg;
+        Result result = drugService.saveDrug(drugParam);
+        return result;
     }
 
     /**
@@ -63,7 +63,7 @@ public class DrugController {
      */
     @RolesAllowed({"ROLE_1"})
     @PutMapping(value = "/{id}")
-    public Msg updateDrug(@PathVariable("id") Long id, @RequestBody DrugParam drugParam) {
+    public Result updateDrug(@PathVariable("id") Long id, @RequestBody DrugParam drugParam) {
         return drugService.updateDrug(id, drugParam);
     }
 
@@ -75,7 +75,7 @@ public class DrugController {
      */
     @RolesAllowed({"ROLE_1"})
     @DeleteMapping(value = "/{drugId}")
-    public Msg deleteDrug(@PathVariable("drugId") Long drugId) {
+    public Result deleteDrug(@PathVariable("drugId") Long drugId) {
         return drugService.deleteDrug(drugId);
     }
 }

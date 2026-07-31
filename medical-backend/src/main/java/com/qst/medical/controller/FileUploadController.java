@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.service.FileUploadService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class FileUploadController {
 
     @RolesAllowed({"ROLE_1", "ROLE_2"})
     @PostMapping(value = "")
-    public Msg fileUpload(@RequestParam("file") MultipartFile file) {
+    public Result fileUpload(@RequestParam("file") MultipartFile file) {
         return fileUploadService.upload(file);
     }
 }

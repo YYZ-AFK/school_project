@@ -1,7 +1,7 @@
 package com.qst.medical.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.domain.Sale;
 import com.qst.medical.service.SaleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,21 +22,21 @@ public class SaleController {
      * 药店信息的分页查询，name不为空则模糊查询
      */
     @GetMapping
-    public Msg getSaleWithPage(@RequestParam(required = false) Integer pn,
-                               @RequestParam(required = false) Integer size,
-                               @RequestParam(required = false) String keyword) {
+    public Result getSaleWithPage(@RequestParam(required = false) Integer pn,
+                                  @RequestParam(required = false) Integer size,
+                                  @RequestParam(required = false) String keyword) {
         PageInfo<Sale> info = saleService.getSaleWithPage(pn, size, keyword);
         if (info != null) {
-            return Msg.success().data("pageInfo", info);
+            return Result.success().data("pageInfo", info);
         }
-        return Msg.fail();
+        return Result.fail();
     }
 
     /**
      * 根据id查询一个药店
      */
     @GetMapping("{id}")
-    public Msg getSaleById(@PathVariable("id") Integer id) {
+    public Result getSaleById(@PathVariable("id") Integer id) {
         return saleService.getSaleById(id);
     }
 
@@ -44,9 +44,9 @@ public class SaleController {
      * 添加一个药店
      */
     @PostMapping
-    public Msg saveSale(@Validated @RequestBody Sale sale) {
+    public Result saveSale(@Validated @RequestBody Sale sale) {
         if (sale.getSaleName() == null || sale.getSaleName().trim().isEmpty()) {
-            return Msg.fail().mess("药店名称不能为空");
+            return Result.fail().mess("药店名称不能为空");
         }
         return saleService.saveSale(sale);
     }
@@ -55,9 +55,9 @@ public class SaleController {
      * 根据id更新药店信息
      */
     @PutMapping("{id}")
-    public Msg updateSaleById(@PathVariable("id") Long id, @RequestBody Sale sale) {
+    public Result updateSaleById(@PathVariable("id") Long id, @RequestBody Sale sale) {
         if (sale.getSaleName() == null || sale.getSaleName().trim().isEmpty()) {
-            return Msg.fail().mess("药店名称不能为空");
+            return Result.fail().mess("药店名称不能为空");
         }
         return saleService.updateSaleById(id, sale);
     }
@@ -66,7 +66,7 @@ public class SaleController {
      * 根据id删除药店信息
      */
     @DeleteMapping("{id}")
-    public Msg deleteSaleById(@PathVariable("id") Integer id) {
+    public Result deleteSaleById(@PathVariable("id") Integer id) {
         return saleService.deleteSaleById(id);
     }
 }

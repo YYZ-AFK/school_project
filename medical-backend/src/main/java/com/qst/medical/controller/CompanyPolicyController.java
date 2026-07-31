@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.param.CompanyPolicyParam;
 import com.qst.medical.service.CompanyPolicyService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class CompanyPolicyController {
      */
     @GetMapping
     @Operation(summary = "分页条件查询医药公司政策")
-    public Msg getPolicyWithPage(CompanyPolicyParam param) {
+    public Result getPolicyWithPage(CompanyPolicyParam param) {
         return companyPolicyService.getAllPolicyWithPage(param);
     }
 
@@ -37,15 +37,15 @@ public class CompanyPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PostMapping
     @Operation(summary = "新增医药公司政策")
-    public Msg savePolicy(@Validated @RequestBody CompanyPolicyParam param) {
+    public Result savePolicy(@Validated @RequestBody CompanyPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
-            return Msg.fail().mess("标题不能为空");
+            return Result.fail().mess("标题不能为空");
         }
         if (!StringUtils.hasText(param.getMessage())) {
-            return Msg.fail().mess("内容不能为空");
+            return Result.fail().mess("内容不能为空");
         }
         if (param.getCompanyId() == null) {
-            return Msg.fail().mess("公司ID不能为空");
+            return Result.fail().mess("公司ID不能为空");
         }
         return companyPolicyService.savePolicy(param);
     }
@@ -56,15 +56,15 @@ public class CompanyPolicyController {
     @RolesAllowed({"ROLE_1"})
     @PutMapping("/{id}")
     @Operation(summary = "修改医药公司政策")
-    public Msg updatePolicy(@PathVariable("id") Long id, @RequestBody CompanyPolicyParam param) {
+    public Result updatePolicy(@PathVariable("id") Long id, @RequestBody CompanyPolicyParam param) {
         if (!StringUtils.hasText(param.getTitle())) {
-            return Msg.fail().mess("标题不能为空");
+            return Result.fail().mess("标题不能为空");
         }
         if (!StringUtils.hasText(param.getMessage())) {
-            return Msg.fail().mess("内容不能为空");
+            return Result.fail().mess("内容不能为空");
         }
         if (param.getCompanyId() == null) {
-            return Msg.fail().mess("公司ID不能为空");
+            return Result.fail().mess("公司ID不能为空");
         }
         return companyPolicyService.updatePolicy(id, param);
     }
@@ -75,7 +75,7 @@ public class CompanyPolicyController {
     @RolesAllowed({"ROLE_1"})
     @DeleteMapping("/{id}")
     @Operation(summary = "删除医药公司政策")
-    public Msg deletePolicy(@PathVariable("id") Long id) {
+    public Result deletePolicy(@PathVariable("id") Long id) {
         return companyPolicyService.deletePolicy(id);
     }
 }

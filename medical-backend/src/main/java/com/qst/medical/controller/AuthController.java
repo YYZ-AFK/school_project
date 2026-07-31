@@ -1,6 +1,6 @@
 package com.qst.medical.controller;
 
-import com.qst.medical.common.Msg;
+import com.qst.medical.common.Result;
 import com.qst.medical.model.AccountModel;
 import com.qst.medical.param.LoginParam;
 import com.qst.medical.service.AccountService;
@@ -34,20 +34,20 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "管理员登录")
-    public Msg login(@Validated @RequestBody LoginParam param) {
+    public Result login(@Validated @RequestBody LoginParam param) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(param.getUsername(), param.getPassword())
             );
             AccountModel account = accountService.securityLogin(param.getUsername());
             String token = jwtUtil.generateToken(account);
-            return Msg.success()
+            return Result.success()
                     .data("token", token)
                     .data("userInfo", account);
         } catch (BadCredentialsException ex) {
-            return Msg.fail().code(10002).mess("账号或密码错误");
+            return Result.fail().code(10002).mess("账号或密码错误");
         } catch (Exception ex) {
-            return Msg.fail().code(10003).mess(ex.getMessage());
+            return Result.fail().code(10003).mess(ex.getMessage());
         }
     }
 }
