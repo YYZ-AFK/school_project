@@ -1,7 +1,13 @@
 package com.qst.medical.domain;
 
+import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * @author yyz
+ */
+@Data
 public class Drug extends SuperDomain {
     private Long drugId;//药品id
 
@@ -31,67 +37,5 @@ public class Drug extends SuperDomain {
                 '}';
     }
 
-    public Long getDrugId() {
-        return drugId;
-    }
 
-    public void setDrugId(Long drugId) {
-        this.drugId = drugId;
-    }
-
-    public String getDrugName() {
-        return drugName;
-    }
-
-    public void setDrugName(String drugName) {
-        this.drugName = drugName;
-    }
-
-    public String getDrugInfo() {
-        return drugInfo;
-    }
-
-    public void setDrugInfo(String drugInfo) {
-        this.drugInfo = drugInfo;
-    }
-
-    public String getDrugEffect() {
-        return drugEffect;
-    }
-
-    public void setDrugEffect(String drugEffect) {
-        this.drugEffect = drugEffect;
-    }
-
-    public String getDrugImg() {
-        return drugImg;
-    }
-
-    public void setDrugImg(String drugImg) {
-        this.drugImg = drugImg;
-    }
-
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public String getDrugPublisher() {
-        return drugPublisher;
-    }
-
-    public void setDrugPublisher(String drugPublisher) {
-        this.drugPublisher = drugPublisher;
-    }
 }

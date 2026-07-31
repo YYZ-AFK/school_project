@@ -1,7 +1,9 @@
 package com.qst.medical.entity;
 
 import com.qst.medical.domain.City;
+import lombok.Data;
 
+@Data
 public class CityEntity extends City {
 
     private Long total;

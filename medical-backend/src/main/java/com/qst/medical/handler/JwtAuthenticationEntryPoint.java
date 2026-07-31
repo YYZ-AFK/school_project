@@ -20,6 +20,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
-        objectMapper.writeValue(response.getWriter(), Msg.fail().code(10006).mess("\u767b\u5f55\u72b6\u6001\u5df2\u5931\u6548"));
+        objectMapper.writeValue(response.getWriter(), Msg.fail().code(10006).mess("登录状态已失效"));
     }
 }

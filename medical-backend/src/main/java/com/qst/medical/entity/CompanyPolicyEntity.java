@@ -1,7 +1,9 @@
 package com.qst.medical.entity;
 
 import com.qst.medical.domain.CompanyPolicy;
+import lombok.Data;
 
+@Data
 public class CompanyPolicyEntity extends CompanyPolicy {
     private Long total;
 

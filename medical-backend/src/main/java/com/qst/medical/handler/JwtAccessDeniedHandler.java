@@ -20,6 +20,6 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
                        AccessDeniedException accessDeniedException) throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json;charset=UTF-8");
-        objectMapper.writeValue(response.getWriter(), Msg.fail().code(10007).mess("\u6ca1\u6709\u8bbf\u95ee\u6743\u9650"));
+        objectMapper.writeValue(response.getWriter(), Msg.fail().code(10007).mess("没有访问权限"));
     }
 }

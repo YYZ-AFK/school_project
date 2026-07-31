@@ -52,7 +52,7 @@ public class DoctorService {
     public DoctorModel update(Long id, DoctorParam param) {
         DoctorModel old = doctorMapper.getById(id);
         if (old == null) {
-            throw new IllegalArgumentException("\u533b\u751f\u4e0d\u5b58\u5728");
+            throw new IllegalArgumentException("医生不存在");
         }
         param.setId(id);
         if (!StringUtils.hasText(param.getPhone())) {

@@ -55,6 +55,6 @@ public class PermissionService {
         if (title == null || "ROLE_1".equals(roleName)) {
             return title;
         }
-        return title.replace("\u7ba1\u7406", "\u67e5\u8be2");
+        return title.replace("管理", "查询");
     }
 }

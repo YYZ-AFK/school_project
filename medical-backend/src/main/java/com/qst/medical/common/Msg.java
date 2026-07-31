@@ -1,19 +1,21 @@
 package com.qst.medical.common;
 
+import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public class Msg {
     private Integer code;
     private String mess;
     private Map<String, Object> data = new HashMap<>();
 
     public static Msg success() {
-        return new Msg().code(20000).mess("\u64cd\u4f5c\u6210\u529f");
+        return new Msg().code(20000).mess("操作成功");
     }
 
     public static Msg fail() {
-        return new Msg().code(10001).mess("\u64cd\u4f5c\u5931\u8d25");
+        return new Msg().code(10001).mess("操作失败");
     }
 
     public Msg code(Integer code) {

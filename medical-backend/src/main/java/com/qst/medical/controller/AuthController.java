@@ -44,7 +44,7 @@ public class AuthController {
                     .data("token", token)
                     .data("userInfo", account);
         } catch (BadCredentialsException ex) {
-            return Msg.fail().code(10002).mess("\u8d26\u53f7\u6216\u5bc6\u7801\u9519\u8bef");
+            return Msg.fail().code(10002).mess("账号或密码错误");
         } catch (Exception ex) {
             return Msg.fail().code(10003).mess(ex.getMessage());
         }
