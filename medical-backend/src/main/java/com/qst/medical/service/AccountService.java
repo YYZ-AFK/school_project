@@ -24,7 +24,7 @@ public class AccountService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AccountModel account = securityLogin(username);
         if (account == null) {
-            throw new UsernameNotFoundException("account not found");
+            throw new UsernameNotFoundException("账户未找到");
         }
         return account;
     }
@@ -39,7 +39,7 @@ public class AccountService implements UserDetailsService {
     public Account createDoctorAccount(String realname, String phoneNumber, String rawPassword) {
         validatePhone(phoneNumber);
         if (accountMapper.countPhone(phoneNumber, null) > 0) {
-            throw new IllegalArgumentException("\u624b\u673a\u53f7\u5df2\u5b58\u5728");
+            throw new IllegalArgumentException("手机号已存在");
         }
         Account account = new Account();
         account.setRealname(realname);
@@ -58,7 +58,7 @@ public class AccountService implements UserDetailsService {
         if (StringUtils.hasText(phoneNumber)) {
             validatePhone(phoneNumber);
             if (accountMapper.countPhone(phoneNumber, accountId) > 0) {
-                throw new IllegalArgumentException("\u624b\u673a\u53f7\u5df2\u5b58\u5728");
+                throw new IllegalArgumentException("手机号已存在");
             }
         }
         Account account = new Account();
