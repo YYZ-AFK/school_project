@@ -33,27 +33,4 @@ public class Result {
         return this;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMess() {
-        return mess;
-    }
-
-    public void setMess(String mess) {
-        this.mess = mess;
-    }
-
-    public Map<String, Object> getData() {
-        return data;
-    }
-
-    public void setData(Map<String, Object> data) {
-        this.data = data;
-    }
 }
